@@ -10,10 +10,10 @@ I want to be able to add a new property
 
 ## Domain Model ##
 
-[Property Manager[
-[-[
-[ [
+|Property Manager|
+|-|
+| |
 
-[Property[
-[-[
-[new[
+|Property|
+|-|
+|new|
