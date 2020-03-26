@@ -1,0 +1,20 @@
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+
+Layout/EndOfLine:
+  Enabled: false
+
+AllCops:
+  Exclude:
+   - 'walkthroughs/**/*'
+   - 'spec/spec_helper.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/*.rb'
