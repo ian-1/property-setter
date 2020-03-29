@@ -4,6 +4,7 @@ class Portfolio
 
   def initialize
     @properties = []
+    @property_code = 100
   end
 
   def how_many_properties
@@ -11,10 +12,11 @@ class Portfolio
   end
 
   def add_property(address = '-empty')
-    @properties << Property.new(address)
+    @property_code += 1
+    @properties << Property.new(address, @property_code)
   end
 
-  def remove_property
-    @properties.pop
+  def remove_property(property_code)
+    @properties.reject! { |property| property.code == property_code }
   end
 end

@@ -20,6 +20,10 @@ As a Property Manager
 So I know where a property is
 I want to set the address when I add a new property
 
+As a Property Manager
+So I can choose which property to remove from my portfolio
+I want to be able to specify which property to remove using a unique code
+
 ## Domain Model ##
 
 |Property Manager|
@@ -30,8 +34,8 @@ I want to set the address when I add a new property
 |-|
 |how_many_properties|
 |add_property(address)|
-|remove_property|
+|remove_property(code)|
 
 |Property|
 |-|
-|add_address(address)|
+| |
