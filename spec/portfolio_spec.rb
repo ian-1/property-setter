@@ -1,15 +1,46 @@
 require 'portfolio'
 
 describe Portfolio do
-  it '.how_many_properties' do
-    expect(described_class).to respond_to(:how_many_properties)
+  let(:portfolio) { described_class.new }
+
+  context 'empty portfolio' do
+    it '.add_property' do
+      portfolio.add_property
+      expect(portfolio.how_many_properties).to eq(1)
+    end
+
+    it '.remove_property' do
+      portfolio.remove_property
+      expect(portfolio.how_many_properties).to eq(-1)
+    end
   end
 
-  it '.add_property' do
-    expect(described_class).to respond_to(:add_property)
+  context '1 property in portfolio' do
+    before { portfolio.add_property }
+
+    it '.add_property' do
+      portfolio.add_property
+      expect(portfolio.how_many_properties).to eq(2)
+    end
+
+    it '.remove_property' do
+      portfolio.remove_property
+      expect(portfolio.how_many_properties).to eq(0)
+    end
   end
 
-  it '.remove_property' do
-    expect(described_class).to respond_to(:remove_property)
+  context 'many properties in portfolio' do
+    many_properties = 50000
+    before { many_properties.times { portfolio.add_property } }
+
+    it '.add_property' do
+      portfolio.add_property
+      expect(portfolio.how_many_properties).to eq(many_properties + 1)
+    end
+
+    it '.remove_property' do
+      portfolio.remove_property
+      expect(portfolio.how_many_properties).to eq(many_properties - 1)
+    end
   end
 end

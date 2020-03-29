@@ -1,8 +1,18 @@
 # Stores properties
 class Portfolio
-  def self.how_many_properties; end
+  def initialize
+    @no_of_properties = 0
+  end
 
-  def self.add_property; end
+  def how_many_properties
+    @no_of_properties
+  end
 
-  def self.remove_property; end
+  def add_property
+    @no_of_properties += 1
+  end
+
+  def remove_property
+    @no_of_properties -= 1
+  end
 end
