@@ -45,7 +45,7 @@ describe Portfolio do
   end
 
   context 'many properties in portfolio' do
-    many_properties = 50_000 # Must be > 100 for later remove test to work
+    many_properties = 5_000 # Must be > 100 for later remove test to work
     before { many_properties.times { portfolio.add_property } }
 
     it '#add_property' do

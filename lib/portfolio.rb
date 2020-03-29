@@ -1,3 +1,5 @@
+require './lib/property.rb'
+
 # Stores properties
 class Portfolio
   attr_reader :properties
@@ -17,6 +19,6 @@ class Portfolio
   end
 
   def remove_property(property_code)
-    @properties.reject! { |property| property.code == property_code }
+    @properties.reject! { |property| property.code == property_code.to_i }
   end
 end
