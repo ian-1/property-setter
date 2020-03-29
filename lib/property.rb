@@ -1,6 +1,7 @@
-class Property;
+# Stores property details
+class Property
   attr_reader :address
-  
+
   def initialize(address)
     @address = address
   end

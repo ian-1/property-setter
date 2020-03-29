@@ -11,7 +11,7 @@ describe Portfolio do
 
     it '#remove_property' do
       portfolio.remove_property
-      expect(portfolio.how_many_properties).to eq(-1)
+      expect(portfolio.how_many_properties).to eq(0)
     end
 
     it '#add_property(address)' do

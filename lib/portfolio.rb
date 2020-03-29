@@ -4,19 +4,17 @@ class Portfolio
 
   def initialize
     @properties = []
-    @no_of_properties = 0
   end
 
   def how_many_properties
-    @no_of_properties
+    @properties.count
   end
 
   def add_property(address = '-empty')
-    @no_of_properties += 1
     @properties << Property.new(address)
   end
 
   def remove_property
-    @no_of_properties -= 1
+    @properties.pop
   end
 end
