@@ -60,23 +60,20 @@ I want to be able to specify which Repair Job to close using a unique code
 |-|
 | |
 
-|Portfolio|
-|-|
-|how_many_properties|
+|Portfolio| <--- |Property|
+|-| |-|
+|how_many_properties| | |
 |add_property(address)|
 |remove_property(code)|
-
-|Property|
-|-|
-| |
 
 |Maintenance|
 |-|
 |how_many_repairs|
+|how_many_active_repairs|
 |add_repair(title)|
 |remove_repair(code)|
 |close_repair(code)|
 
 |Repair|
 |-|
-| |
+|close_repair|
