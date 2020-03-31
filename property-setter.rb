@@ -31,56 +31,79 @@ def maintenance_no_print(maintenance)
   puts "#{indent}Active Repairs: #{maintenance.how_many_active_repairs}"
 end
 
-def menu_property
+def menu_intro
   puts "#{indent}Your options are:"
   puts ''
+end
+
+def input_prompt
+  puts ''
+  print "#{indent(3)}? "
+end
+
+def input_from_user
+  user_input = gets.chomp
+  puts ''
+  user_input
+end
+
+def enter_info(info_name)
+  puts "#{indent}Enter #{info_name}:     (c to cancel)"
+  input_prompt
+  input_from_user
+end
+
+def pause_till_enter
+  print indent(7)
+  gets.chomp
+end
+
+def menu_property
+  menu_intro
   puts "#{indent(7)}1) View properties"
   puts "#{indent(7)}2) Add property"
   puts "#{indent(7)}3) Remove Property"
   puts "#{indent(15)}(m -> maintenance menu)"
   puts "#{indent(15)}(q -> quit)"
-  puts ''
-  print "#{indent(3)}? "
+  input_prompt
 end
 
 def menu_property_respond(user_input, portfolio)
-  case user_input
-  when '1'
-    view_properties(portfolio)
-  when '2'
-    add_property(portfolio)
-  when '3'
-    remove_property(portfolio)
-  end
+  view_properties(portfolio) if user_input == '1'
+  add_property(portfolio) if user_input == '2'
+  remove_property(portfolio) if user_input == '3'
 end
 
 def menu_maintenance
-  puts "#{indent}Your options are:"
-  puts ''
-  puts "#{indent(7)}1) View repair jobs"
-  puts "#{indent(7)}2) Open repair job"
-  puts "#{indent(7)}3) Add repair job"
-  puts "#{indent(7)}4) Close repair job"
-  puts "#{indent(7)}5) Remove repair job"
+  menu_intro
+  space = indent(7)
+  puts "#{space}1) View repair jobs"
+  puts "#{space}2) Open repair job"
+  puts "#{space}3) Add repair job"
+  puts "#{space}4) Close repair job"
+  puts "#{space}5) Remove repair job"
   puts "#{indent(15)}(p -> property menu)"
   puts "#{indent(15)}(q -> quit)"
-  puts ''
-  print "#{indent(3)}? "
+  input_prompt
 end
 
 def menu_maintenance_respond(user_input, maintenance, settings)
-  case user_input
-  when '1'
-    view_repairs(maintenance)
-  when '2'
-    open_repair(maintenance, settings)
-  when '3'
-    add_repair(maintenance)
-  when '4'
-    close_repair(maintenance)
-  when '5'
-    remove_repair(maintenance)
+  view_repairs(maintenance) if user_input == '1'
+  open_repair(settings) if user_input == '2'
+  add_repair(maintenance) if user_input == '3'
+  close_repair(maintenance) if user_input == '4'
+  remove_repair(maintenance) if user_input == '5'
+end
+
+def repair_show_display(selected_repair)
+  puts "#{indent}Title: #{selected_repair.title}"
+  unless selected_repair.is_active
+    puts ''
+    puts "#{indent(3)}THIS JOB IS NO LONGER ACTIVE"
   end
+  puts ''
+  puts "#{indent(15)}(m -> back to maitenance menu)"
+  input_prompt
 end
 
 def repair_show(maintenance, settings)
@@ -91,17 +114,7 @@ def repair_show(maintenance, settings)
   if selected_repair == false
     puts "#{indent}Invalid Code (m -> back to maitenance menu)"
   end
-  return if selected_repair == false
-
-  puts"#{indent}Title: #{selected_repair.title}"
-  unless selected_repair.is_active
-    puts ''
-    puts "#{indent(3)}THIS JOB IS NO LONGER ACTIVE"
-  end
-  puts ''
-  puts "#{indent(15)}(m -> back to maitenance menu)"
-  puts ''
-  print "#{indent(3)}? "
+  repair_show_display(selected_repair) unless selected_repair == false
 end
 
 def blank_space(message, width)
@@ -113,8 +126,9 @@ end
 
 def indent(number_of_aditional_spaces = 0)
   number_of_spaces = 14 + number_of_aditional_spaces
-  number_of_spaces.times { print ' ' }
-  return
+  spaces = ''
+  (number_of_spaces - 1).times { spaces << ' ' }
+  spaces
 end
 
 def dash_space(width)
@@ -136,8 +150,7 @@ def view_properties(portfolio)
     address = property.address[0...width]
     puts " |  #{property.code} |#{address}#{blank_space(address, width)}|"
   end
-  print "#{indent(7)}"
-  gets.chomp
+  pause_till_enter
 end
 
 def view_repairs_title(width)
@@ -145,75 +158,51 @@ def view_repairs_title(width)
   puts " |------|--------|#{dash_space(width)}|"
 end
 
-def view_repairs(maintenance)
-  repairs = maintenance.repairs
-  width = 25
-  view_repairs_title(width)
+def view_repairs_fill(repairs, width)
   repairs.each do |repair|
     title = repair.title[0...width]
     code = "#{blank_space(repair.code.to_s, 5)}#{repair.code} "
-    active = " #{repair.is_active.to_s}#{blank_space(repair.is_active.to_s, 7)}"
+    active = " #{repair.is_active}#{blank_space(repair.is_active.to_s, 7)}"
     puts " |#{code}|#{active}|#{title}#{blank_space(title, width)}|"
   end
-  print "#{indent(7)}"
-  gets.chomp
+end
+
+def view_repairs(maintenance)
+  width = 25
+  view_repairs_title(width)
+  view_repairs_fill(maintenance.repairs, width)
+  pause_till_enter
 end
 
 def add_property(portfolio)
-  puts "#{indent}Enter address:     (c to cancel)"
-  puts ''
-  print "#{indent(3)}? "
-  address = gets.chomp
-  puts ''
-  portfolio.add_property(address) if address != 'c'
+  address = enter_info('address')
+  portfolio.add_property(address) unless address == 'c'
 end
 
 def remove_property(portfolio)
-  puts "#{indent}Enter code:     (c to cancel)"
-  puts ''
-  print "#{indent(3)}? "
-  code = gets.chomp
-  puts ''
-  portfolio.remove_property(code) if code != 'c'
+  code = enter_info('code')
+  portfolio.remove_property(code) unless code == 'c'
 end
 
-def open_repair(maintenance, settings)
-  puts "#{indent}Enter code:     (c to cancel)"
-  puts ''
-  print "#{indent(3)}? "
-  code = gets.chomp
-  puts ''
-  if code != 'c'
-    settings.set_menu(:repair)
-    settings.set_selected_repair_code(code)
-  end
+def open_repair(settings)
+  code = enter_info('code')
+  settings.change_menu(:repair) unless code == 'c'
+  settings.change_selected_repair_code(code)
 end
 
 def add_repair(maintenance)
-  puts "#{indent}Enter Job title:     (c to cancel)"
-  puts ''
-  print "#{indent(3)}? "
-  title = gets.chomp
-  puts ''
-  maintenance.add_repair(title) if title != 'c'
+  title = enter_info('Job title')
+  maintenance.add_repair(title) unless title == 'c'
 end
 
 def close_repair(maintenance)
-  puts "#{indent}Enter code:     (c to cancel)"
-  puts ''
-  print "#{indent(3)}? "
-  code = gets.chomp
-  puts ''
-  maintenance.close_repair(code) if code != 'c'
+  code = enter_info('code')
+  maintenance.close_repair(code) unless code == 'c'
 end
 
 def remove_repair(maintenance)
-  puts "#{indent}Enter code:     (c to cancel)"
-  puts ''
-  print "#{indent(3)}? "
-  code = gets.chomp
-  puts ''
-  maintenance.remove_repair(code) if code != 'c'
+  code = enter_info('code')
+  maintenance.remove_repair(code) unless code == 'c'
 end
 
 portfolio = Portfolio.new
@@ -233,15 +222,14 @@ loop do
   when :repair
     repair_show(maintenance, settings)
   end
-  user_input = gets.chomp
-  puts ''
+  user_input = input_from_user
   case settings.menu
   when :property
     menu_property_respond(user_input, portfolio)
   when :maintenance
     menu_maintenance_respond(user_input, maintenance, settings)
   end
-  settings.set_menu(:maintenance) if user_input == 'm'
-  settings.set_menu(:property) if user_input == 'p'
+  settings.change_menu(:maintenance) if user_input == 'm'
+  settings.change_menu(:property) if user_input == 'p'
   break if user_input == 'q'
 end

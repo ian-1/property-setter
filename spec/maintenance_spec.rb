@@ -84,7 +84,7 @@ describe Maintenance do
       it '#close_repair' do
         maintenance.close_repair(many_repairs - 76)
         expect(maintenance.how_many_repairs).to eq(many_repairs)
-        expect(maintenance.how_many_active_repairs).to eq(many_repairs -1)
+        expect(maintenance.how_many_active_repairs).to eq(many_repairs - 1)
       end
     end
 

@@ -24,7 +24,7 @@ As a Property Manager\
 So I can choose which property to remove from my portfolio\
 I want to be able to specify which property to remove using a unique code
 
------------------
+---
 
 As a Property Manager\
 So I can keep track of my repairs\
@@ -54,6 +54,12 @@ As a Property Manager\
 So I can choose which Repair Job to close\
 I want to be able to specify which Repair Job to close using a unique code
 
+---
+
+As a Property Manager\
+So I can keep information I have enterred\
+I want to be able to save data inputted into Property-Setter
+
 ## Domain Model ##
 
 |Property Manager|
@@ -77,3 +83,7 @@ I want to be able to specify which Repair Job to close using a unique code
 |Repair|
 |-|
 |close_repair|
+
+|File|
+|-|
+|save|
