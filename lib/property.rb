@@ -16,6 +16,7 @@ class Property
 
   # Not unit tested
   def save_line_generate
-    "address<|>#{@address}<|-|>"
+    save_line = "address<|>#{@address}<|-|>"
+    save_line << "repairs<|>#{@repairs}<|-|>"
   end
 end

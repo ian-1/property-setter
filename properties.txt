@@ -1,6 +1,6 @@
-address<|>Flat b, 52 Red Grove, London E11 4RE
-address<|>23 White Avenue, London SE5 4RR
-address<|>5 Diamond House, Green Street, London SW2 3RV
-address<|>132 Yellow Road, London W3 8UK
-address<|>37 Blue lane, London N3 4RD
-address<|>203 Brown Way, London SE22 8SS
+address<|>Flat b, 52 Red Grove, London E11 4RE<|-|>repairs<|>[]
+address<|>23 White Avenue, London SE5 4RR<|-|>repairs<|>[#<Repair:0x0000000005212f50 @title="Flat roof at rear has leak", @code=102, @is_active=false, @property=#<Property:0x00000000052054e0 @address="23 White Avenue, London SE5 4RR", @code=102, @repairs=[...]>>, #<Repair:0x00000000052113d0 @title="Landing light flickers", @code=106, @is_active=true, @property=#<Property:0x00000000052054e0 @address="23 White Avenue, London SE5 4RR", @code=102, @repairs=[...]>>]
+address<|>5 Diamond House, Green Street, London SW2 3RV<|-|>repairs<|>[]
+address<|>132 Yellow Road, London W3 8UK<|-|>repairs<|>[]
+address<|>37 Blue lane, London N3 4RD<|-|>repairs<|>[]
+address<|>203 Brown Way, London SE22 8SS<|-|>repairs<|>[]

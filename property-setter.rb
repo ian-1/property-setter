@@ -69,25 +69,34 @@ def menu_property_respond(user_input, portfolio)
   remove_property(portfolio) if user_input == '3'
 end
 
+def menu_numbers(options)
+  space = indent(7)
+  options.each do |option|
+    puts "#{space}#{options.find_index(option) + 1}) #{option}"
+  end
+end
+
+def menu_letters(options)
+  space = indent(15)
+  options.each { |option| puts "#{space}(#{option[0]} -> #{option[1]})" }
+end
+
 def menu_maintenance
   menu_intro
-  space = indent(7)
-  puts "#{space}1) View repair jobs"
-  puts "#{space}2) Open repair job"
-  puts "#{space}3) Add repair job"
-  puts "#{space}4) Close repair job"
-  puts "#{space}5) Remove repair job"
-  puts "#{indent(15)}(p -> property menu)"
-  puts "#{indent(15)}(q -> quit)"
+  menu_numbers(['View repair jobs', 'Open repair job', 'Add repair job',
+                'Add property to repair job', 'Close repair job',
+                'Remove repair job'])
+  menu_letters([['p', 'property menu'], ['q', 'quit']])
   input_prompt
 end
 
-def menu_maintenance_respond(user_input, maintenance, settings)
-  view_repairs(maintenance, settings) if user_input == '1'
+def menu_maintenance_respond(user_input, maintenance, settings, portfolio)
+  view_repairs(maintenance, settings, portfolio) if user_input == '1'
   open_repair(settings) if user_input == '2'
   add_repair(maintenance) if user_input == '3'
-  close_repair(maintenance) if user_input == '4'
-  remove_repair(maintenance) if user_input == '5'
+  add_property_to_repair(maintenance, portfolio) if user_input == '4'
+  close_repair(maintenance) if user_input == '5'
+  remove_repair(maintenance) if user_input == '6'
 end
 
 def repair_show_title(title)
@@ -174,13 +183,13 @@ def view_repairs_fill(repairs, width)
   end
 end
 
-def view_repairs(maintenance, settings)
+def view_repairs(maintenance, settings, portfolio)
   width = 40
   view_repairs_title(width)
   view_repairs_fill(maintenance.repairs, width)
   input_prompt
   user_input = input_from_user
-  menu_maintenance_respond(user_input, maintenance, settings)
+  menu_maintenance_respond(user_input, maintenance, settings, portfolio)
 end
 
 def add_property(portfolio)
@@ -202,6 +211,16 @@ end
 def add_repair(maintenance)
   title = enter_info('Job title')
   maintenance.add_repair(title) unless title == 'c'
+end
+
+def add_property_to_repair(maintenance, portfolio)
+  repair_code = enter_info('REPAIR code')
+  property_code = enter_info('PROPERTY code')
+  if repair_code != 'c' && property_code != 'c'
+    repair = maintenance.repair_from_code(repair_code)
+    property = portfolio.property_from_code(property_code)
+    maintenance.link_repair_to_property(repair, property)
+  end
 end
 
 def close_repair(maintenance)
@@ -239,7 +258,7 @@ loop do
   when :property
     menu_property_respond(user_input, portfolio)
   when :maintenance
-    menu_maintenance_respond(user_input, maintenance, settings)
+    menu_maintenance_respond(user_input, maintenance, settings, portfolio)
   end
   settings.change_menu(:maintenance) if user_input == 'm'
   settings.change_menu(:property) if user_input == 'p'

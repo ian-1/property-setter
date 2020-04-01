@@ -1,7 +1,7 @@
-title<|>Oven won't turn on<|-|>is_active<|>true
-title<|>Flat roof at rear has leak<|-|>is_active<|>true
-title<|>No heating or hot water<|-|>is_active<|>true
-title<|>Water leak to living room under bathroom<|-|>is_active<|>true
-title<|>3 broken bed slats in front bedroom<|-|>is_active<|>true
-title<|>Landing light flickers<|-|>is_active<|>true
-title<|>Bathrom extractor stopped working<|-|>is_active<|>true
+title<|>Oven won't turn on<|-|>is_active<|>true<|-|>property<|>
+title<|>Flat roof at rear has leak<|-|>is_active<|>false<|-|>property<|>#<Property:0x00000000052054e0>
+title<|>No heating or hot water<|-|>is_active<|>false<|-|>property<|>
+title<|>Water leak to living room under bathroom<|-|>is_active<|>false<|-|>property<|>
+title<|>3 broken bed slats in front bedroom<|-|>is_active<|>true<|-|>property<|>
+title<|>Landing light flickers<|-|>is_active<|>true<|-|>property<|>#<Property:0x00000000052054e0>
+title<|>Bathrom extractor stopped working<|-|>is_active<|>true<|-|>property<|>

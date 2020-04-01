@@ -91,9 +91,22 @@ I want to be able to load previously saved data into Property-Setter
 |-| |-|
 |how_many_repairs| |close_repair|
 |how_many_active_repairs| |add_property(code)|
+|repair_from_code|
+|!!link_repair_to_property(repair, property)!!|
 |add_repair(title)|
 |remove_repair(code)|
 |close_repair(code)|
 |save_repairs|
 |load_repairs|
 
+# Leopard - Inteligent Property Management System #
+
+Magic no - remove code start numbers (eg 100)
+
+use doubles & mocks in tests that are refering to each other 
+
+split interface into main loop, logic, menu & view
+
+all methods only accept portfolio/maintenance or property/repair
+
+Search for properties by short address not code

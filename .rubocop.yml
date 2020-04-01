@@ -6,6 +6,8 @@ Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:
   Enabled: true
+Style/WordArray:
+  Enabled: false
 
 Layout/EndOfLine:
   Enabled: false

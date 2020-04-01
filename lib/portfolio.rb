@@ -41,11 +41,21 @@ class Portfolio
   end
 
   # Not unit tested
+  def load_each_property(line, _code)
+    entries = line.chomp.split('<|-|>')
+    entries.each do |entry|
+      task, value = entry.chomp.split('<|>')
+      add_property(value) if task == 'address'
+    end
+  end
+
+  # Not unit tested
   def load_properties
     open('properties.txt', 'r') do |file|
+      code = 100
       file.readlines.each do |line|
-        _task, entry = line.chomp.split('<|>')
-        add_property(entry)
+        code += 1
+        load_each_property(line, code)
       end
     end
   end

@@ -21,6 +21,14 @@ class Maintenance
     active_repairs
   end
 
+  def repair_from_code(repair_code)
+    correct_repair = nil
+    @repairs.map do |repair|
+      correct_repair = repair if repair.code == repair_code.to_i
+    end
+    correct_repair
+  end
+
   def add_repair(title = '-empty')
     @repair_code += 1
     @repairs << Repair.new(title, @repair_code)
@@ -34,6 +42,11 @@ class Maintenance
     @repairs.each do |repair|
       repair.close_repair if repair.code == repair_code.to_i
     end
+  end
+
+  def link_repair_to_property(repair, property)
+    repair.add_property(property)
+    property.add_repair(repair)
   end
 
   # Not unit tested
@@ -59,7 +72,7 @@ class Maintenance
   # Not unit tested
   def load_repairs
     open('repairs.txt', 'r') do |file|
-      code = 0
+      code = 100
       file.readlines.each do |line|
         code += 1
         load_each_repair(line, code)

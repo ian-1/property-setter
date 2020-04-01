@@ -13,11 +13,9 @@ describe Repair do
 
     it '#add_property' do
       portfolio = Portfolio.new
-      portfolio.add_property
-      repair.add_property(portfolio, 101)
-      expect(repair.property).to be_instance_of(Property)
-      expect(repair.property.code).to eq(101)
-      expect(repair.property.repairs[-1]).to eq(repair)
+      property = portfolio.add_property
+      repair.add_property(property)
+      expect(repair.property).to be(property)
     end
 
     it '#is_active' do

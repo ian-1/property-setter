@@ -1,5 +1,3 @@
-#require 'portfolio'
-
 # Stores repair details
 class Repair
   attr_reader :title
@@ -18,15 +16,14 @@ class Repair
     @is_active = false
   end
 
-  def add_property(portfolio, property_code)
-    property = portfolio.property_from_code(property_code)
+  def add_property(property)
     @property = property
-    property.add_repair(self)
   end
 
   # Not unit tested
   def save_line_generate
     save_line = "title<|>#{@title}<|-|>"
     save_line << "is_active<|>#{@is_active}<|-|>"
+    save_line << "property<|>#{@property}<|-|>"
   end
 end
