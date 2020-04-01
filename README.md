@@ -24,6 +24,10 @@ As a Property Manager\
 So I can choose which property to remove from my portfolio\
 I want to be able to specify which property to remove using a unique code
 
+As a Property Manager\
+So I can see what repair jobs there are for a Property\
+I want to be able to link a Property to its Repair jobs 
+
 ---
 
 As a Property Manager\
@@ -54,11 +58,19 @@ As a Property Manager\
 So I can choose which Repair Job to close\
 I want to be able to specify which Repair Job to close using a unique code
 
+As a Property Manager\
+So I can see which Property a repair job is for\
+I want to be able to link a Repair job to a Property
+
 ---
 
 As a Property Manager\
 So I can keep information I have enterred\
 I want to be able to save data inputted into Property-Setter
+
+As a Property Manager\
+So I can reuse information I have eterred\
+I want to be able to load previously saved data into Property-Setter
 
 ## Domain Model ##
 
@@ -68,22 +80,20 @@ I want to be able to save data inputted into Property-Setter
 
 |Portfolio| <--- |Property|
 |-| |-|
-|how_many_properties| | |
+|how_many_properties| |add_repair(repair)|
+|property_from_code(code)|
 |add_property(address)|
 |remove_property(code)|
+|save_properties|
+|load_properties|
 
-|Maintenance|
-|-|
-|how_many_repairs|
-|how_many_active_repairs|
+|Maintenance| <--- |Repair|
+|-| |-|
+|how_many_repairs| |close_repair|
+|how_many_active_repairs| |add_property(code)|
 |add_repair(title)|
 |remove_repair(code)|
 |close_repair(code)|
+|save_repairs|
+|load_repairs|
 
-|Repair|
-|-|
-|close_repair|
-
-|File|
-|-|
-|save|

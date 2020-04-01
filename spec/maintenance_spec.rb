@@ -10,7 +10,7 @@ describe Maintenance do
       expect(maintenance.how_many_active_repairs).to eq(1)
       expect(maintenance.repairs[-1]).to be_instance_of(Repair)
       expect(maintenance.repairs[-1].title).to eq('test title')
-      expect(maintenance.repairs[-1].code).to eq(1)
+      expect(maintenance.repairs[-1].code).to eq(101)
     end
 
     it '#remove_repair' do
@@ -29,18 +29,18 @@ describe Maintenance do
       expect(maintenance.how_many_active_repairs).to eq(2)
       expect(maintenance.repairs[-1]).to be_instance_of(Repair)
       expect(maintenance.repairs[-1].title).to eq('test title')
-      expect(maintenance.repairs[-1].code).to eq(2)
+      expect(maintenance.repairs[-1].code).to eq(102)
     end
 
     context '>valid repair_code' do
       it '#remove_repair' do
-        maintenance.remove_repair(1)
+        maintenance.remove_repair(101)
         expect(maintenance.how_many_repairs).to eq(0)
         expect(maintenance.how_many_active_repairs).to eq(0)
       end
 
       it '#close_repair' do
-        maintenance.close_repair(1)
+        maintenance.close_repair(101)
         expect(maintenance.how_many_repairs).to eq(1)
         expect(maintenance.how_many_active_repairs).to eq(0)
       end
@@ -71,7 +71,7 @@ describe Maintenance do
       expect(maintenance.how_many_active_repairs).to eq(many_repairs + 1)
       expect(maintenance.repairs[-1]).to be_instance_of(Repair)
       expect(maintenance.repairs[-1].title).to eq('test title')
-      expect(maintenance.repairs[-1].code).to eq(many_repairs + 1)
+      expect(maintenance.repairs[-1].code).to eq(many_repairs + 101)
     end
 
     context '>valid repair_code' do
@@ -90,13 +90,13 @@ describe Maintenance do
 
     context '>non-valid repair_code' do
       it '#remove_repair' do
-        maintenance.remove_repair(many_repairs + 1)
+        maintenance.remove_repair(many_repairs + 101)
         expect(maintenance.how_many_repairs).to eq(many_repairs)
         expect(maintenance.how_many_active_repairs).to eq(many_repairs)
       end
 
       it '#close_repair' do
-        maintenance.close_repair(many_repairs + 1)
+        maintenance.close_repair(many_repairs + 101)
         expect(maintenance.how_many_repairs).to eq(many_repairs)
         expect(maintenance.how_many_active_repairs).to eq(many_repairs)
       end

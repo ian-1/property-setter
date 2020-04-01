@@ -53,11 +53,6 @@ def enter_info(info_name)
   input_from_user
 end
 
-def pause_till_enter
-  print indent(7)
-  gets.chomp
-end
-
 def menu_property
   menu_intro
   puts "#{indent(7)}1) View properties"
@@ -88,21 +83,31 @@ def menu_maintenance
 end
 
 def menu_maintenance_respond(user_input, maintenance, settings)
-  view_repairs(maintenance) if user_input == '1'
+  view_repairs(maintenance, settings) if user_input == '1'
   open_repair(settings) if user_input == '2'
   add_repair(maintenance) if user_input == '3'
   close_repair(maintenance) if user_input == '4'
   remove_repair(maintenance) if user_input == '5'
 end
 
+def repair_show_title(title)
+  puts "#{indent}Title: #{title[0..31]}"
+  title = title[32..-1]
+  until title.nil?
+    title = title[1..-1] if title[0] == ' '
+    puts "#{indent(7)}#{title[0..31]}"
+    title = title[32..-1]
+  end
+end
+
 def repair_show_display(selected_repair)
-  puts "#{indent}Title: #{selected_repair.title}"
+  repair_show_title(selected_repair.title)
   unless selected_repair.is_active
     puts ''
     puts "#{indent(3)}THIS JOB IS NO LONGER ACTIVE"
   end
   puts ''
-  puts "#{indent(15)}(m -> back to maitenance menu)"
+  puts "#{indent(9)}(m -> back to maitenance menu)"
   input_prompt
 end
 
@@ -150,7 +155,9 @@ def view_properties(portfolio)
     address = property.address[0...width]
     puts " |  #{property.code} |#{address}#{blank_space(address, width)}|"
   end
-  pause_till_enter
+  input_prompt
+  user_input = input_from_user
+  menu_property_respond(user_input, portfolio)
 end
 
 def view_repairs_title(width)
@@ -167,11 +174,13 @@ def view_repairs_fill(repairs, width)
   end
 end
 
-def view_repairs(maintenance)
-  width = 25
+def view_repairs(maintenance, settings)
+  width = 40
   view_repairs_title(width)
   view_repairs_fill(maintenance.repairs, width)
-  pause_till_enter
+  input_prompt
+  user_input = input_from_user
+  menu_maintenance_respond(user_input, maintenance, settings)
 end
 
 def add_property(portfolio)
@@ -206,10 +215,13 @@ def remove_repair(maintenance)
 end
 
 portfolio = Portfolio.new
+portfolio.load_properties
 maintenance = Maintenance.new
+maintenance.load_repairs
 settings = Settings.new(:property)
 loop do
   system('clear')
+  system('cls')
   settings.reset_selected_repair_code unless settings.menu == :repair
   title_print
   sub_title_print(settings, portfolio, maintenance)
@@ -233,3 +245,5 @@ loop do
   settings.change_menu(:property) if user_input == 'p'
   break if user_input == 'q'
 end
+portfolio.save_properties
+maintenance.save_repairs
